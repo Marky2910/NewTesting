@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🍌 Rock Paper Scissors - Banana Edition</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fffbe6;
+      color: #5c3b00;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #e6b800;
+    }
+
+    .choices {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #ffe135;
+      border: 2px solid #e6b800;
+      border-radius: 12px;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #fff066;
+      transform: scale(1.05);
+    }
+
+    .result-box {
+      background-color: #fff3b0;
+      padding: 15px 30px;
+      border-radius: 15px;
+      border: 2px dashed #e6b800;
+      text-align: center;
+      font-size: 1.3rem;
+      min-height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .banana {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    #tryAgainBtn {
+      display: none;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍌 Rock Paper Scissors</h1>
+  <div class="banana">Pick your move:</div>
+  <div class="choices">
+    <button onclick="playGame('rock')">🪨 Rock</button>
+    <button onclick="playGame('paper')">📄 Paper</button>
+    <button onclick="playGame('scissors')">✂️ Scissors</button>
+  </div>
+  <div class="result-box" id="resultBox"></div>
+  <button id="tryAgainBtn" onclick="resetGame()">🔁 Try Again</button>
+
+  <script>
+    function getComputerChoice() {
+      const choices = ["rock", "paper", "scissors"];
+      return choices[Math.floor(Math.random() * choices.length)];
+    }
+
+    function determineWinner(playerChoice, computerChoice) {
+      if (playerChoice === computerChoice) {
+        return "It's a tie! 🍌";
+      }
+      if (
+        (playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper")
+      ) {
+        return "You win! 🍌🎉";
+      }
+      return "You lose! 😢";
+    }
+
+    function playGame(playerChoice) {
+      const computerChoice = getComputerChoice();
+      const result = determineWinner(playerChoice, computerChoice);
+      document.getElementById("resultBox").innerHTML = `
+        <p>You chose: <strong>${playerChoice}</strong></p>
+        <p>Computer chose: <strong>${computerChoice}</strong></p>
+        <p><strong>${result}</strong></p>
+      `;
+      document.getElementById("tryAgainBtn").style.display = "inline-block";
+    }
+
+    function resetGame() {
+      document.getElementById("resultBox").innerHTML = "";
+      document.getElementById("tryAgainBtn").style.display = "none";
+    }
+  </script>
+</body>
+</html>
